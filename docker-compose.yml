@@ -1,0 +1,56 @@
+version: "3.7"
+
+volumes: 
+  db:
+
+networks:
+  frontend:
+  backend:
+
+services: 
+  web:
+    image: moodstats/frontend
+    build: ./web
+    restart: on-failure
+    networks: 
+      frontend:
+    ports:
+      - 8080:80
+    depends_on: 
+      - server
+
+  server:
+    image: moodstats/server
+    build: ./server
+    restart: on-failure
+    networks:
+      frontend:
+      backend:
+    env_file: ./server/.env
+    depends_on: 
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: on-failure
+    networks:
+      backend:
+    volumes: 
+      - db:/data/db
+    environment: 
+      MONGO_INITDB_DATABASE: nest
+    ports: 
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    networks: 
+      backend:
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    depends_on: 
+      - mongo

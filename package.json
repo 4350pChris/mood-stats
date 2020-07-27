@@ -1,17 +1,46 @@
 {
   "scripts": {
-    "start": "snowpack dev",
+    "start": "snowpack dev --secure",
     "build": "snowpack build",
     "test": "jest"
   },
   "dependencies": {
-    "svelte": "^3.21.0"
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@tailwindcss/typography": "^0.2.0",
+    "debounce": "^1.2.0",
+    "dompurify": "^2.0.12",
+    "marked": "^1.1.1",
+    "svelte-click-outside": "^1.0.0"
   },
   "devDependencies": {
-    "@snowpack/app-scripts-svelte": "^1.6.0-alpha.0",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-typescript": "^7.10.4",
+    "@snowpack/app-scripts-svelte": "^1.7.0",
+    "@snowpack/plugin-babel": "^1.4.0",
+    "@snowpack/plugin-dotenv": "^1.6.0-alpha.0",
+    "@snowpack/plugin-webpack": "^1.6.0-alpha.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/svelte": "^3.0.0",
+    "@tsconfig/svelte": "^1.0.2",
+    "@types/debounce": "^1.2.0",
+    "@types/dompurify": "^2.0.2",
+    "@types/marked": "^1.1.0",
+    "autoprefixer": "^9.8.5",
+    "cssnano": "^4.1.10",
     "jest": "^25.4.0",
-    "snowpack": "^2.6.4"
+    "parcel-bundler": "^1.12.4",
+    "postcss-cli": "^7.1.1",
+    "postcss-import": "^12.0.1",
+    "postcss-nested": "^4.2.3",
+    "prettier": "^2.0.5",
+    "prettier-plugin-svelte": "^1.1.0",
+    "sass": "^1.26.10",
+    "snowpack": "^2.6.4",
+    "svelte": "^3.21.0",
+    "svelte-check": "^0.1.55",
+    "svelte-preprocess": "^4.0.8",
+    "tailwindcss": "^1.5.2",
+    "typescript": "^3.9.7"
   }
 }

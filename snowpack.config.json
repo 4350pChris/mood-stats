@@ -1,5 +1,10 @@
 {
   "extends": "@snowpack/app-scripts-svelte",
-  "scripts": {},
-  "plugins": []
+  "scripts": {
+    "build:css": "postcss"
+  },
+  "plugins": ["@snowpack/plugin-webpack", "@snowpack/plugin-babel", "@snowpack/plugin-dotenv"],
+  "proxy": {
+    "/api": "https://monica.ennen.dev/api"
+  }
 }

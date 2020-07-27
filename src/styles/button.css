@@ -1,0 +1,39 @@
+.btn {
+  @apply font-bold py-2 px-4 rounded uppercase;
+
+  &:hover {
+    @apply transition-colors duration-300;
+  }
+
+  &-link {
+    @apply bg-opacity-0 !important;
+
+    &:hover {
+      --bg-opacity: 0.07 !important;
+    }
+  }
+
+  &-blue {
+    @apply bg-blue-500 text-white;
+
+    &.btn-link {
+      @apply text-blue-500;
+    }
+
+    &:hover {
+      @apply bg-blue-700;
+    }
+  }
+
+  &-red {
+    @apply bg-red-500 text-white;
+
+    &.btn-link {
+      @apply text-red-500;
+    }
+
+    &:hover {
+      @apply bg-red-700;
+    }
+  }
+}
