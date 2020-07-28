@@ -7,33 +7,41 @@
   import { activities } from "./stores/activities"
   import Charts from "./components/charts/Charts.svelte"
   import { MonicaClient } from "./stores/api"
+  import Navbar from "./components/navbar/Navbar.svelte"
+  import { user } from "./stores/user"
+  import { initialized } from "./stores/app"
+  import Router, { wrap, replace } from "svelte-spa-router"
+  import Token from "./components/Token.svelte"
 
-  const initToken = localStorage.getItem("token")
-
-  if (initToken !== null) {
-    MonicaClient.token = initToken
+  function checkToken() {
+    return localStorage.getItem("token") !== null
   }
 
-  let token: string
+  const routes = {
+    "/": wrap(Journal, checkToken),
+    "/journal": wrap(Journal, checkToken),
+    "/charts": wrap(Charts, checkToken),
+    "/token": Token,
+  }
 
-  function saveToken() {
-    localStorage.setItem("token", token)
-    MonicaClient.token = token
+  function routeLoaded() {
+    const token = localStorage.getItem("token")
+    if (token !== MonicaClient.token) {
+      MonicaClient.token = token
+    }
+    if (MonicaClient.token && !$initialized) {
+
+      Promise.all([contacts.fetchAll(), journal.fetchAll(), activities.fetchAll(), user.fetchUser()]).finally(
+        () => ($initialized = true)
+      )
+    }
   }
 </script>
 
-<main class="container mx-auto flex flex-col">
-  {#if !MonicaClient.token}
-    <textarea class="border my-4" placeholder="Paste your token here" rows={16} bind:value={token} />
-    <button class="btn btn-blue" type="button" on:click={saveToken}>Save</button>
-  {:else}
-    {#await Promise.all([contacts.fetchAll(), journal.fetchAll(), activities.fetchAll()])}
-      <div class="spinner-xl min-h-screen" />
-    {:then _}
-      <h1 class="text-4xl mb-4">Charts</h1>
-      <Charts />
-      <h1 class="text-4xl mb-4">Journal</h1>
-      <Journal />
-    {/await}
+<Navbar />
+<main class="container mx-auto flex flex-col pt-16 mb-2">
+  {#if !$initialized && MonicaClient.token}
+    <div class="spinner-xl min-h-screen -mt-16 -mb-2" />
   {/if}
+  <Router {routes} on:conditionsFailed={() => replace('/token')} on:routeLoaded={routeLoaded} />
 </main>

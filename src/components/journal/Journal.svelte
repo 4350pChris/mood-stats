@@ -4,6 +4,7 @@
   import JournalEntryCard from "./JournalEntryCard.svelte"
   import JournalEntryInput from "./JournalEntryInput.svelte"
   import type { JournalEntry, NewJournalEntry } from "../../models/journalEntry"
+  import { initialized } from "../../stores/app"
 
   let sortedJournals: JournalEntry[]
   let editing: number
@@ -24,16 +25,17 @@
   }
 </script>
 
-<div class="flex flex-col items-center">
-  <JournalEntryInput text="Create" on:submit={handleCreation} />
-  {#each sortedJournals as entry (entry.id)}
-    <div in:fade={{ duration: 250 }} class="mb-2 w-full">
-      {#if editing === entry.id}
-        <JournalEntryInput text="Done" cancel {entry} on:submit={handleEdit} on:cancel={() => (editing = -1)} />
-      {:else}
-        <JournalEntryCard {entry} on:delete={() => handleDeletion(entry.id)} on:edit={() => (editing = entry.id)} />
-      {/if}
-    </div>
-  {/each}
-</div>
-
+{#if $initialized}
+  <div class="flex flex-col items-center" in:fade>
+    <JournalEntryInput text="Create" on:submit={handleCreation} />
+    {#each sortedJournals as entry (entry.id)}
+      <div in:fade|local={{ duration: 250 }} class="mb-2 w-full">
+        {#if editing === entry.id}
+          <JournalEntryInput text="Done" cancel {entry} on:submit={handleEdit} on:cancel={() => (editing = -1)} />
+        {:else}
+          <JournalEntryCard {entry} on:delete={() => handleDeletion(entry.id)} on:edit={() => (editing = entry.id)} />
+        {/if}
+      </div>
+    {/each}
+  </div>
+{/if}

@@ -11,7 +11,8 @@
     "debounce": "^1.2.0",
     "dompurify": "^2.0.12",
     "marked": "^1.1.1",
-    "svelte-click-outside": "^1.0.0"
+    "svelte-click-outside": "^1.0.0",
+    "svelte-spa-router": "^2.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -36,6 +37,7 @@
     "postcss-nested": "^4.2.3",
     "prettier": "^2.0.5",
     "prettier-plugin-svelte": "^1.1.0",
+    "rollup-plugin-svelte": "^5.2.3",
     "sass": "^1.26.10",
     "snowpack": "^2.6.4",
     "svelte": "^3.21.0",

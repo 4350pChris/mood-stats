@@ -70,9 +70,7 @@
         },
       ],
       dataLabels: {
-        formatter(value, { seriesIndex }) {
-          return seriesIndex === 1 ? value + " %" : value
-        },
+        enabled: false
       },
       xaxis: {
         categories: [],
