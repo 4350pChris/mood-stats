@@ -7,9 +7,9 @@ const { subscribe, set } = writable<Contact[]>([]);
 const client = new MonicaClient<Contact, {}>('contacts');
 
 export const contacts = {
-  async fetchAll() {
-    const res = await client.getAll();
-    set(res);
+  async search(query: string) {
+    const res = await client.request<Contact[]>('', { query: { query }})
+    set(res.data);
   },
   subscribe
 }

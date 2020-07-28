@@ -24,19 +24,13 @@
   }
 </script>
 
-{#await journal.fetchAll()}
-  <p>loading...</p>
-{:then _}
-  <JournalEntryInput text="Create" on:submit={handleCreation} />
-  {#each sortedJournals as entry (entry.id)}
-    <div in:fade={{ duration: 250 }} class="mb-2">
-      {#if editing === entry.id}
-        <JournalEntryInput text="Done" cancel {entry} on:submit={handleEdit} on:cancel={() => (editing = -1)} />
-      {:else}
-        <JournalEntryCard {entry} on:delete={() => handleDeletion(entry.id)} on:edit={() => (editing = entry.id)} />
-      {/if}
-    </div>
-  {/each}
-{:catch error}
-  <p>{error}</p>
-{/await}
+<JournalEntryInput text="Create" on:submit={handleCreation} />
+{#each sortedJournals as entry (entry.id)}
+  <div in:fade={{ duration: 250 }} class="mb-2">
+    {#if editing === entry.id}
+      <JournalEntryInput text="Done" cancel {entry} on:submit={handleEdit} on:cancel={() => (editing = -1)} />
+    {:else}
+      <JournalEntryCard {entry} on:delete={() => handleDeletion(entry.id)} on:edit={() => (editing = entry.id)} />
+    {/if}
+  </div>
+{/each}

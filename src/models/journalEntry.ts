@@ -9,8 +9,6 @@ export interface ApiJournalEntry {
     url: string
 }
 
-export interface JournalEntry extends ApiJournalEntry {
-    contacts: Contact[];
-}
+export type NewJournalEntry = Pick<ApiJournalEntry, 'title' | 'post'>
 
-export type NewJournalEntry = Pick<JournalEntry, 'title' | 'post' | 'contacts'>
+export type JournalEntry = ApiJournalEntry & { contacts: number[] };

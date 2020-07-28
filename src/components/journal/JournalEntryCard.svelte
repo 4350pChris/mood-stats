@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { JournalEntry } from '../../models/journalEntry';
   import { createEventDispatcher } from 'svelte';
-import JournalContacts from './JournalContacts.svelte';
-import { contacts } from '../../stores/contacts';
+  import JournalContacts from './JournalContacts.svelte';
 
   export let entry: JournalEntry;
 

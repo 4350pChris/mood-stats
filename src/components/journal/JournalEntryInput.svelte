@@ -11,7 +11,10 @@
 
   export let text: string
   export let cancel: boolean = false
-  export let entry: Pick<JournalEntry, "title" | "post" | "contacts"> = { title: "", post: "", contacts: [] }
+
+  const defaultEntry = { title: "", post: "", contacts: [] };
+  
+  export let entry: Pick<JournalEntry, "title" | "post" | "contacts"> = { ...defaultEntry };
 
   let preview: boolean = true
 
@@ -21,28 +24,28 @@
   const dispatch = createEventDispatcher()
 
   function handleSubmit() {
-    dispatch("submit", entry);
+    dispatch("submit", entry)
+    entry = { ...defaultEntry };
   }
 
   function handleCancel() {
-    dispatch("cancel");
+    dispatch("cancel")
   }
 
   async function contactClicked({ detail }: { detail?: Contact }) {
-    const contact = await contacts.getContact(detail.id)
-    if (entry.contacts.find(({ id }) => contact.id === id) === undefined) {
-      entry.contacts = [...entry.contacts, contact]
+    if (entry.contacts.find((id) => detail.id === id) === undefined) {
+      entry.contacts = [...entry.contacts, detail.id]
     }
   }
 
   function removeContact({ detail }: { detail?: Contact }) {
-    entry.contacts = entry.contacts.filter(({ id }) => detail.id !== id)
+    entry.contacts = entry.contacts.filter((id) => detail.id !== id)
   }
 </script>
 
 <div class="w-full max-w-md">
   <form
-    class="flex flex-col bg-white shadow-md rounded px-8 py-4 mb-4"
+    class="flex flex-col bg-white shadow rounded px-8 py-4 mb-4"
     on:submit|preventDefault={handleSubmit}
     autocomplete="off"
   >
