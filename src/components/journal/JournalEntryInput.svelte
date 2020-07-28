@@ -43,49 +43,47 @@
   }
 </script>
 
-<div class="w-full max-w-md">
-  <form
-    class="flex flex-col bg-white shadow rounded px-8 py-4 mb-4"
-    on:submit|preventDefault={handleSubmit}
-    autocomplete="off"
-  >
-    <input
-      class="mb-2 border-b"
-      id="title"
-      name="title"
-      bind:value={entry.title}
-      placeholder="Title"
-      required
-      maxlength={255}
-    />
-    <textarea
-      class="mb-2 border"
-      id="post"
-      name="post"
-      bind:value={entry.post}
-      placeholder="What happened today?"
-      required
-      maxlength={1000000}
-      rows={6}
-    />
-    <JournalContacts contacts={entry.contacts} deletable on:click={removeContact} />
-    <div class="my-2">
-      <Search on:click={contactClicked} />
+<form
+  class="w-full flex flex-col bg-white shadow rounded px-8 py-4 mb-4"
+  on:submit|preventDefault={handleSubmit}
+  autocomplete="off"
+>
+  <input
+    class="mb-2 border-b"
+    id="title"
+    name="title"
+    bind:value={entry.title}
+    placeholder="Title"
+    required
+    maxlength={255}
+  />
+  <textarea
+    class="mb-2 border"
+    id="post"
+    name="post"
+    bind:value={entry.post}
+    placeholder="What happened today?"
+    required
+    maxlength={1000000}
+    rows={6}
+  />
+  <JournalContacts contacts={entry.contacts} deletable on:click={removeContact} />
+  <div class="my-2">
+    <Search on:click={contactClicked} />
+  </div>
+  <label class="my-2">
+    <input type="checkbox" bind:checked={preview} />
+    Preview
+  </label>
+  {#if preview}
+    <div class="prose prose-sm mb-4 p-2 bg-gray-100" transition:slide|local>
+      {@html markdown}
     </div>
-    <label class="my-2">
-      <input type="checkbox" bind:checked={preview} />
-      Preview
-    </label>
-    {#if preview}
-      <div class="prose prose-sm mb-4 p-2 bg-gray-100" transition:slide|local>
-        {@html markdown}
-      </div>
+  {/if}
+  <div class="flex justify-between">
+    <button class="btn btn-blue" type="submit">{text}</button>
+    {#if cancel}
+      <button class="btn btn-link btn-gray" type="reset" on:click|preventDefault={handleCancel}>cancel</button>
     {/if}
-    <div class="flex justify-between">
-      <button class="btn btn-blue" type="submit">{text}</button>
-      {#if cancel}
-        <button class="btn btn-link btn-gray" type="reset" on:click|preventDefault={handleCancel}>cancel</button>
-      {/if}
-    </div>
-  </form>
-</div>
+  </div>
+</form>
