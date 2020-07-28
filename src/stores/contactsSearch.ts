@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import type { Contact } from '../models/contact';
-import {  MonicaClient } from './api';
+import { MonicaClient } from './api';
 
 const { subscribe, set } = writable<Contact[]>([]);
 

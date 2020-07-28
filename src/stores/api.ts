@@ -1,5 +1,3 @@
-const { SNOWPACK_PUBLIC_MONICA_API_TOKEN } = import.meta.env;
-
 type ApiResponse<T> = {
   data: T;
   meta?: {
@@ -7,8 +5,10 @@ type ApiResponse<T> = {
   }
   error?: { message: string; error_code: number; }
 }
+
 export class MonicaClient<TModel extends TUpdateModel & { id: number }, TUpdateModel> {
   private url: string;
+  static token: string;
 
   constructor(url: string) {
     this.url = url;
@@ -26,7 +26,7 @@ export class MonicaClient<TModel extends TUpdateModel & { id: number }, TUpdateM
     }
     const res = await fetch(fullPath, {
       ...options,
-      headers: { 'Authorization': 'Bearer ' + SNOWPACK_PUBLIC_MONICA_API_TOKEN, 'Redirect': 'follow' }
+      headers: { 'Authorization': 'Bearer ' + MonicaClient.token, 'Redirect': 'follow' }
     });
 
     const json: ApiResponse<T> = await res.json();
