@@ -10,6 +10,7 @@
   import JournalContacts from "./JournalContacts.svelte"
 
   export let text: string
+  export let cancel: boolean = false
   export let entry: Pick<JournalEntry, "title" | "post" | "contacts"> = { title: "", post: "", contacts: [] }
 
   let preview: boolean = true
@@ -20,7 +21,11 @@
   const dispatch = createEventDispatcher()
 
   function handleSubmit() {
-    dispatch("submit", entry)
+    dispatch("submit", entry);
+  }
+
+  function handleCancel() {
+    dispatch("cancel");
   }
 
   async function contactClicked({ detail }: { detail?: Contact }) {
@@ -31,7 +36,7 @@
   }
 
   function removeContact({ detail }: { detail?: Contact }) {
-    entry.contacts = entry.contacts.filter(({ id }) => detail.id !== id);
+    entry.contacts = entry.contacts.filter(({ id }) => detail.id !== id)
   }
 </script>
 
@@ -60,7 +65,7 @@
       maxlength={1000000}
       rows={6}
     />
-    <JournalContacts contacts={entry.contacts} deletable={true} on:click={removeContact} />
+    <JournalContacts contacts={entry.contacts} deletable on:click={removeContact} />
     <div class="my-2">
       <Search on:click={contactClicked} />
     </div>
@@ -73,6 +78,11 @@
         {@html markdown}
       </div>
     {/if}
-    <button class="btn btn-blue self-start" type="submit">{text}</button>
+    <div class="flex justify-between">
+      <button class="btn btn-blue" type="submit">{text}</button>
+      {#if cancel}
+        <button class="btn btn-link btn-gray" type="reset" on:click|preventDefault={handleCancel}>cancel</button>
+      {/if}
+    </div>
   </form>
 </div>
