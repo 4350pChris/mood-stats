@@ -3,7 +3,7 @@
   import { journal } from "../../stores/journal"
   import JournalEntryCard from "./JournalEntryCard.svelte"
   import JournalEntryInput from "./JournalEntryInput.svelte"
-  import type { JournalEntry, NewJournalEntry } from "../../models/journalEntry"
+  import type { JournalEntry } from "../../models/journalEntry"
   import { initialized } from "../../stores/app"
 
   let sortedJournals: JournalEntry[]
