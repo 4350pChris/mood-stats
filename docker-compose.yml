@@ -1,17 +1,16 @@
 version: "3.7"
 
-volumes: 
-  db:
-
 networks:
-  frontend:
-  backend:
+  docker-network:
+    external: true
 
 services: 
   web:
-    image: moodstats/frontend
+    image: moodstats
     build: .
-    restart: on-failure
+    restart: always
+    networks:
+      - docker-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mood.entrypoints=http"
