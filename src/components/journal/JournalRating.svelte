@@ -1,27 +1,28 @@
 <script lang="ts">
   import { library, icon } from '@fortawesome/fontawesome-svg-core'
-  import { faStar as liquidStar } from '@fortawesome/free-regular-svg-icons';
+  import { faStar as liquidStar, faSmileBeam, faFrown } from '@fortawesome/free-regular-svg-icons';
   import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
   import { createEventDispatcher } from "svelte";
 
   export let disabled: boolean = false
   export let rating: number
 
-  library.add(liquidStar, solidStar)
+  library.add(liquidStar, solidStar, faSmileBeam, faFrown)
 
   let hoverRating: number = 0;
   const dispatch = createEventDispatcher();
-  const ratings = [1, 2, 3, 4, 5]
+  const ratings = new Array(10).map((_, i) => i + 1)
 </script>
 
-<div class="flex w-20">
+<div class="flex items-center justify-between">
+  {@html icon(faFrown, { classes: ["text-red-700"], transform: { size: 32 } }).html}
   {#each ratings as star}
     <button
       class="btn btn-link rounded-full text-yellow-500"
       class:pointer-events-none={disabled}
       type="button"
       {disabled}
-      title={`${star} stars`}
+      title={`rate ${star} out of 10`}
       on:click={() => dispatch("click", star)}
       on:mouseenter={() => hoverRating = star}
       on:mouseleave={() => hoverRating = 0}
@@ -29,4 +30,5 @@
       {@html icon(star <= (hoverRating > 0 ? hoverRating : rating) ? solidStar : liquidStar).html}
     </button>
   {/each}
+  {@html icon(faSmileBeam, { classes: ["text-green-700"], transform: { size: 32 } }).html}
 </div>

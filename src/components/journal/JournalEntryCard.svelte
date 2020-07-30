@@ -19,14 +19,14 @@
     {#if entry.title}
     <h2 class="font-bold text-xl mb-2">{entry.title}</h2>
     {/if}
-    <JournalRating disabled rating={entry.rating} />
     <div class="text-gray-600 text-sm">{new Date(entry.created_at).toLocaleDateString()}</div>
   </div>
   <div class="prose prose-sm mb-2">
     {@html entry.post}
   </div>
   <JournalContacts contacts={entry.contacts} />
-  <div class="flex justify-between">
+  <JournalRating disabled rating={entry.rating} />
+  <div class="flex justify-between mt-2">
     <button class="btn btn-link btn-blue" on:click={() => dispatch('edit')}>
       {@html editIcon}
       <span>edit</span>

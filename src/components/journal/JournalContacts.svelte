@@ -1,21 +1,26 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
   import { fade } from "svelte/transition"
-  import { icon } from "@fortawesome/fontawesome-svg-core";
-  import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+  import { icon } from "@fortawesome/fontawesome-svg-core"
+  import { faTimesCircle } from "@fortawesome/free-regular-svg-icons"
   import type { Contact } from "src/models/contact"
-  import { contacts as contactsStore } from 'src/stores/contacts';
+  import { contacts as contactsStore } from "src/stores/contacts"
 
   export let contacts: number[]
-  export let deletable: boolean = false;
+  export let deletable: boolean = false
 
   const dispatch = createEventDispatcher()
 
-  let contactObjects: Contact[];
+  let contactObjects: Contact[]
 
-  const circle = icon(faTimesCircle, { classes: ['hover:bg-gray-400']}).html;
+  const circle = icon(faTimesCircle, {
+    classes: ["hover:bg-gray-400", "rounded-full"],
+    transform: {
+      size: 24
+    }
+  }).html
 
-  $: contactObjects = contacts.map(id => $contactsStore.find(c => c.id === id));
+  $: contactObjects = contacts.map((id) => $contactsStore.find((c) => c.id === id))
 </script>
 
 <div class="my-2">

@@ -20,6 +20,7 @@ function parseApiResponse(entry: ApiJournalEntry): JournalEntry {
   match = post.match(/<p>rating: (\d)<\/p>/)
   if (match !== null) {
     rating = parseInt(match[1])
+    post = post.replace(match[0], '')
   }
 
   return { ...entry, post, contacts: cons, rating };
