@@ -1,6 +1,5 @@
 <script lang="ts">
   import "./styles/index.css"
-  import "@fortawesome/fontawesome-free/js/all.js"
   import Journal from "./components/journal/Journal.svelte"
   import { contacts } from "./stores/contacts"
   import { journal } from "./stores/journal"

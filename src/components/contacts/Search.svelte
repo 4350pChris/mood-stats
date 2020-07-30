@@ -8,7 +8,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
   import { flip } from "svelte/animate"
-  import { contacts } from "../../stores/contactsSearch"
+  import { contacts } from "src/stores/contactsSearch"
   import debounce from "debounce"
 
   const dispatch = createEventDispatcher()

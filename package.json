@@ -5,7 +5,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@tailwindcss/typography": "^0.2.0",
     "apexcharts": "^3.19.3",
     "debounce": "^1.2.0",

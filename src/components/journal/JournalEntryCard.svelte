@@ -1,9 +1,15 @@
 <script lang="ts">
-  import type { JournalEntry } from '../../models/journalEntry';
+  import { icon } from "@fortawesome/fontawesome-svg-core";
+  import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+  import type { JournalEntry } from 'src/models/journalEntry';
   import { createEventDispatcher } from 'svelte';
   import JournalContacts from './JournalContacts.svelte';
+  import JournalRating from './JournalRating.svelte';
 
   export let entry: JournalEntry;
+
+  const editIcon = icon(faEdit).html;
+  const trashIcon = icon(faTrashAlt).html;
 
   const dispatch = createEventDispatcher();
 </script>
@@ -13,6 +19,7 @@
     {#if entry.title}
     <h2 class="font-bold text-xl mb-2">{entry.title}</h2>
     {/if}
+    <JournalRating disabled rating={entry.rating} />
     <div class="text-gray-600 text-sm">{new Date(entry.created_at).toLocaleDateString()}</div>
   </div>
   <div class="prose prose-sm mb-2">
@@ -21,11 +28,11 @@
   <JournalContacts contacts={entry.contacts} />
   <div class="flex justify-between">
     <button class="btn btn-link btn-blue" on:click={() => dispatch('edit')}>
-      <i class="fas fa-edit"></i>
+      {@html editIcon}
       <span>edit</span>
     </button>
     <button class="btn btn-link btn-red" on:click={() => dispatch('delete')}>
-      <i class="fas fa-trash-alt"></i>
+      {@html trashIcon}
       <span>delete</span>
     </button>
   </div>

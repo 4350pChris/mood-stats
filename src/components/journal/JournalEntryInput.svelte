@@ -3,18 +3,18 @@
   import { slide } from "svelte/transition"
   import marked from "marked"
   import DOMPurify from "dompurify"
-  import type { JournalEntry } from "../../models/journalEntry"
-  import Search from "../contacts/Search.svelte"
-  import type { Contact } from "../../models/contact"
-  import { contacts } from "../../stores/contacts"
+  import type { JournalEntry } from "src/models/journalEntry"
+  import type { Contact } from "src/models/contact"
+  import Search from "src/components/contacts/Search.svelte"
   import JournalContacts from "./JournalContacts.svelte"
+  import JournalRating from "./JournalRating.svelte";
 
   export let text: string
   export let cancel: boolean = false
 
-  const defaultEntry = { title: "", post: "", contacts: [] };
+  const defaultEntry = { title: "", post: "", contacts: [], rating: 0 };
   
-  export let entry: Pick<JournalEntry, "title" | "post" | "contacts"> = { ...defaultEntry };
+  export let entry: Pick<JournalEntry, "title" | "post" | "contacts" | "rating"> = { ...defaultEntry };
 
   let preview: boolean = true
 
@@ -67,8 +67,9 @@
     maxlength={1000000}
     rows={6}
   />
-  <JournalContacts contacts={entry.contacts} deletable on:click={removeContact} />
   <div class="my-2">
+    <JournalRating rating={entry.rating} on:click={({ detail }) => entry.rating = detail} />
+    <JournalContacts contacts={entry.contacts} deletable on:click={removeContact} />
     <Search on:click={contactClicked} />
   </div>
   <label class="my-2">

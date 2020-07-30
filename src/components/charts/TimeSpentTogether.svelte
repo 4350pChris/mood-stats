@@ -1,6 +1,6 @@
 <script lang="ts">
   import ApexCharts from "apexcharts"
-  import { contacts } from "../../stores/contacts"
+  import { contacts } from "src/stores/contacts"
   import { onMount } from "svelte"
 
   export let contactIds: number[]
@@ -19,7 +19,6 @@
 
   $: if (chart) {
     const categories = []
-    const totalEvents = []
     const percentageEvents = []
 
     Object.entries(eventsWithContact)
@@ -27,15 +26,11 @@
       .forEach(([id, times]) => {
         const { first_name, last_name } = $contacts.find((c) => c.id.toString() === id)
         categories.push(first_name + (last_name ? " " + last_name : ""))
-        totalEvents.push(times)
         percentageEvents.push(Math.round((times * 100) / Object.keys(eventsWithContact).length))
       })
 
     chart.updateOptions({ xaxis: { categories } })
-    chart.updateSeries([
-      { name: "total events", data: totalEvents },
-      { name: "% events", data: percentageEvents },
-    ])
+    chart.updateSeries([{ name: "% events", data: percentageEvents }])
   }
 
   onMount(() => {
@@ -61,16 +56,12 @@
       },
       series: [
         {
-          name: "total events",
-          data: [],
-        },
-        {
           name: "% events",
           data: [],
         },
       ],
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       xaxis: {
         categories: [],
@@ -78,10 +69,6 @@
       },
       yaxis: [
         {
-          title: { text: "Total Events" },
-        },
-        {
-          opposite: true,
           title: { text: "% of events" },
         },
       ],

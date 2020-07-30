@@ -9,9 +9,15 @@
 </style>
 
 <script lang="ts">
-  import { user } from "../../stores/user"
+  import { user } from "src/stores/user"
   import { link } from "svelte-spa-router"
   import active from "svelte-spa-router/active"
+  import { icon } from "@fortawesome/fontawesome-svg-core";
+  import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+  import { faKey } from '@fortawesome/free-solid-svg-icons';
+
+  const keyIcon = icon(faKey).html
+  const mailIcon = icon(faEnvelope).html
 </script>
 
 <div class="w-full px-4 z-10 fixed bg-white shadow flex justify-between items-center h-12">
@@ -19,7 +25,7 @@
     <a class="mr-4" href="/journal" use:link use:active={/^(\/|\/journal)$/}>Journal</a>
     <a class="mr-4" href="/charts" use:link use:active>Charts</a>
     <a class="text-lg ml-auto mr-4" href="/token" use:link use:active>
-      <i class="fas fa-key"></i>
+      {@html keyIcon}
       Token
     </a>
   </nav>
@@ -28,7 +34,7 @@
       <span>{$user.first_name}</span>
       <span>{$user.last_name}</span>
       <span class="mx-2">
-        <i class="far fa-envelope" />
+        {@html mailIcon}
         {$user.email}
       </span>
     </div>

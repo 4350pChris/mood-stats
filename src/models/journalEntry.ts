@@ -11,4 +11,4 @@ export interface ApiJournalEntry {
 
 export type NewJournalEntry = Pick<ApiJournalEntry, 'title' | 'post'>
 
-export type JournalEntry = ApiJournalEntry & { contacts: number[] };
+export type JournalEntry = ApiJournalEntry & { contacts: number[], rating: number };

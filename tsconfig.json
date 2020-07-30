@@ -7,6 +7,10 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*"]
+    }
   }
 }

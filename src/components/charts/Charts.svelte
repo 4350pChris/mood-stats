@@ -1,8 +1,8 @@
 <script lang="ts">
   import TimeSpentTogether from "./TimeSpentTogether.svelte"
-  import { journal } from "../../stores/journal"
-  import { activities } from "../../stores/activities"
-  import { initialized } from "../../stores/app"
+  import { journal } from "src/stores/journal"
+  import { activities } from "src/stores/activities"
+  import { initialized } from "src/stores/app"
   import { fade } from "svelte/transition"
 
   let contactIds: number[]

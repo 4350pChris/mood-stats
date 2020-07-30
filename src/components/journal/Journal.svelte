@@ -1,10 +1,10 @@
 <script lang="ts">
   import { fade } from "svelte/transition"
-  import { journal } from "../../stores/journal"
+  import { journal } from "src/stores/journal"
   import JournalEntryCard from "./JournalEntryCard.svelte"
   import JournalEntryInput from "./JournalEntryInput.svelte"
-  import type { JournalEntry } from "../../models/journalEntry"
-  import { initialized } from "../../stores/app"
+  import type { JournalEntry } from "src/models/journalEntry"
+  import { initialized } from "src/stores/app"
 
   let sortedJournals: JournalEntry[]
   let editing: number

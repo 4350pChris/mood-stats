@@ -9,22 +9,32 @@ const { set, update, subscribe } = writable<JournalEntry[]>([]);
 function parseApiResponse(entry: ApiJournalEntry): JournalEntry {
   let post = entry.post;
   const cons = [];
-  const match = post.match(/<p>with: ([\d, ]*)<\/p>/)
+  let match = post.match(/<p>with: ([\d, ]*)<\/p>/)
   if (match !== null) {
     const ids = match[1].split(',').map(s => Number(s.trim()));
     cons.push(...ids);
     post = post.replace(match[0], "");
   }
 
-  return { ...entry, post, contacts: cons };
+  let rating = 0;
+  match = post.match(/<p>rating: (\d)<\/p>/)
+  if (match !== null) {
+    rating = parseInt(match[1])
+  }
+
+  return { ...entry, post, contacts: cons, rating };
 }
 
-function toApiForm({ contacts, post }: Partial<Pick<JournalEntry, 'contacts' | 'post'>>): string {
+function toApiForm({ contacts, rating, post }: Partial<JournalEntry>): string {
   if (contacts?.length > 0) {
-    return post + "<p>with: " + contacts.join(", ") + "</p>";
-  } else {
-    return post;
+    post = post + "<p>with: " + contacts.join(", ") + "</p>";
   }
+
+  if (rating) {
+    post = post + `<p>rating: ${rating}</p>`
+  }
+
+  return post;
 }
 
 export const journal = {
