@@ -1,10 +1,10 @@
-const plugins = require('./postcss.config');
+const postcss = require('./postcss.config');
 const sveltePreprocess = require('svelte-preprocess');
 
 const preprocess = sveltePreprocess({
     typescript: true,
     postcss: {
-      plugins: plugins.plugins
+      plugins: postcss.plugins
     },
   });
   
