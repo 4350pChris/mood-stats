@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
-import { User } from '../models/user';
+import type { User } from '../models/user';
 import { MonicaClient } from './api';
 
-const { subscribe, set } = writable<User>(null);
+const { subscribe, set } = writable<User | null>(null);
 
 const client = new MonicaClient<User, {}>('me')
 

@@ -32,7 +32,7 @@ export class MonicaClient<TModel extends TUpdateModel & { id: number }, TUpdateM
     const json: ApiResponse<T> = await res.json();
 
     if (!res.ok) {
-      throw json.error.message;
+      throw json?.error?.message;
     }
 
     return { data: json.data, last: json.meta?.last_page };
@@ -41,7 +41,7 @@ export class MonicaClient<TModel extends TUpdateModel & { id: number }, TUpdateM
   async getAll() {
     const res = await this.request<TModel[]>();
     const promises: Promise<TModel[]>[] = [];
-    if (res.last > 1) {
+    if (res?.last !== undefined && res.last > 1) {
       for (let page = 2; page <= res.last; page++) {
         promises.push(this.request<TModel[]>('', { query: { page: page.toString() } }).then(r => r.data));
       }

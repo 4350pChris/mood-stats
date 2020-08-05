@@ -1,4 +1,4 @@
-import { Contact } from './contact';
+import type { Contact } from './contact';
 
 export interface ApiActivity {
   id: number

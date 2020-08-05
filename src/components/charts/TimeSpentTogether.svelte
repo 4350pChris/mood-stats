@@ -1,7 +1,8 @@
 <script lang="ts">
   import ApexCharts from "apexcharts"
-  import { contacts } from "src/stores/contacts"
+  import { contacts } from "../../stores/contacts"
   import { onMount } from "svelte"
+  import type { Contact } from "../../models/contact";
 
   export let contactIds: number[]
 
@@ -18,13 +19,13 @@
   }, {} as Record<number, number>)
 
   $: if (chart) {
-    const categories = []
-    const percentageEvents = []
+    const categories: string[] = []
+    const percentageEvents: number[] = []
 
     Object.entries(eventsWithContact)
       .sort((a, b) => b[1] - a[1])
       .forEach(([id, times]) => {
-        const { first_name, last_name } = $contacts.find((c) => c.id.toString() === id)
+        const { first_name, last_name } = $contacts.find((c) => c.id.toString() === id) as Contact
         categories.push(first_name + (last_name ? " " + last_name : ""))
         percentageEvents.push(Math.round((times * 100) / Object.keys(eventsWithContact).length))
       })

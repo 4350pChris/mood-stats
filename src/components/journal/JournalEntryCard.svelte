@@ -1,7 +1,7 @@
 <script lang="ts">
   import { icon } from "@fortawesome/fontawesome-svg-core";
   import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-  import type { JournalEntry } from 'src/models/journalEntry';
+  import type { JournalEntry } from '../../models/journalEntry';
   import { createEventDispatcher } from 'svelte';
   import JournalContacts from './JournalContacts.svelte';
   import JournalRating from './JournalRating.svelte';
@@ -14,7 +14,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<div class="w-full rounded overflow-hidden shadow px-6 py-4">
+<div class="w-full bg-white rounded overflow-hidden shadow px-6 py-4">
   <div class="flex justify-between">
     {#if entry.title}
     <h2 class="font-bold text-xl mb-2">{entry.title}</h2>

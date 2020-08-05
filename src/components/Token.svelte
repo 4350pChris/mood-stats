@@ -2,7 +2,7 @@
   import { push } from "svelte-spa-router"
   import { fade } from "svelte/transition"
 
-  let token: string = localStorage.getItem("token")
+  let token: string = localStorage.getItem("token") ?? ""
 
   function saveToken() {
     localStorage.setItem("token", token)

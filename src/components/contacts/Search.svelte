@@ -8,19 +8,18 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
   import { flip } from "svelte/animate"
-  import { contacts } from "src/stores/contactsSearch"
+  import { contacts } from "../../stores/contactsSearch"
   import debounce from "debounce"
 
   const dispatch = createEventDispatcher()
   let term: string = ""
-  let focus: boolean = false
 
   $: if (term) search(term)
 
   const search = debounce(contacts.search, 300)
 </script>
 
-<input class="border-b w-full" placeholder="Search contacts..." bind:value={term} on:focus={() => (focus = true)} />
+<input class="border-b w-full" placeholder="Search contacts..." bind:value={term} />
 {#if term}
   <ul class="contacts">
     {#each $contacts as contact (contact.id)}

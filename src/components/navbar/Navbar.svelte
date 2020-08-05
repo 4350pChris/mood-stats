@@ -9,7 +9,7 @@
 </style>
 
 <script lang="ts">
-  import { user } from "src/stores/user"
+  import { user } from "../../stores/user"
   import { link } from "svelte-spa-router"
   import active from "svelte-spa-router/active"
   import { icon } from "@fortawesome/fontawesome-svg-core";
@@ -29,14 +29,12 @@
       Token
     </a>
   </nav>
-  {#if $user}
-    <div>
-      <span>{$user.first_name}</span>
-      <span>{$user.last_name}</span>
-      <span class="mx-2">
-        {@html mailIcon}
-        {$user.email}
-      </span>
-    </div>
-  {/if}
+  <div>
+    <span>{$user?.first_name}</span>
+    <span>{$user?.last_name}</span>
+    <span class="mx-2">
+      {@html mailIcon}
+      {$user?.email}
+    </span>
+  </div>
 </div>

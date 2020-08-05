@@ -10,7 +10,7 @@
 </script>
 
 {#if $initialized}
-  <div in:fade>
+  <div in:fade class="bg-white rounded">
     <TimeSpentTogether {contactIds} />
   </div>
 {/if}

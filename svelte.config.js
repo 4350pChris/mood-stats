@@ -3,9 +3,7 @@ const sveltePreprocess = require('svelte-preprocess');
 
 const preprocess = sveltePreprocess({
     typescript: true,
-    postcss: {
-      plugins: postcss.plugins
-    },
+    postcss,
   });
   
   module.exports = {

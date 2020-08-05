@@ -27,7 +27,7 @@ function parseApiResponse(entry: ApiJournalEntry): JournalEntry {
 }
 
 function toApiForm({ contacts, rating, post }: Partial<JournalEntry>): string {
-  if (contacts?.length > 0) {
+  if (contacts !== undefined && contacts.length > 0) {
     post = post + "<p>with: " + contacts.join(", ") + "</p>";
   }
 
@@ -35,7 +35,7 @@ function toApiForm({ contacts, rating, post }: Partial<JournalEntry>): string {
     post = post + `<p>rating: ${rating}</p>`
   }
 
-  return post;
+  return post ?? "";
 }
 
 export const journal = {

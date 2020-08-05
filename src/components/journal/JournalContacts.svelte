@@ -3,8 +3,8 @@
   import { fade } from "svelte/transition"
   import { icon } from "@fortawesome/fontawesome-svg-core"
   import { faTimesCircle } from "@fortawesome/free-regular-svg-icons"
-  import type { Contact } from "src/models/contact"
-  import { contacts as contactsStore } from "src/stores/contacts"
+  import type { Contact } from "../../models/contact"
+  import { contacts as contactsStore } from "../../stores/contacts"
 
   export let contacts: number[]
   export let deletable: boolean = false
@@ -20,7 +20,7 @@
     }
   }).html
 
-  $: contactObjects = contacts.map((id) => $contactsStore.find((c) => c.id === id))
+  $: contactObjects = contacts.map((id) => $contactsStore.find((c) => c.id === id) as Contact)
 </script>
 
 <div class="my-2">

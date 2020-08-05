@@ -3,8 +3,8 @@
   import { slide } from "svelte/transition"
   import marked from "marked"
   import DOMPurify from "dompurify"
-  import type { JournalEntry } from "src/models/journalEntry"
-  import type { Contact } from "src/models/contact"
+  import type { JournalEntry } from "../../models/journalEntry"
+  import type { Contact } from "../../models/contact"
   import Search from "src/components/contacts/Search.svelte"
   import JournalContacts from "./JournalContacts.svelte"
   import JournalRating from "./JournalRating.svelte";
@@ -32,13 +32,13 @@
     dispatch("cancel")
   }
 
-  async function contactClicked({ detail }: { detail?: Contact }) {
+  async function contactClicked({ detail }: { detail: Contact }) {
     if (entry.contacts.find((id) => detail.id === id) === undefined) {
       entry.contacts = [...entry.contacts, detail.id]
     }
   }
 
-  function removeContact({ detail }: { detail?: Contact }) {
+  function removeContact({ detail }: { detail: Contact }) {
     entry.contacts = entry.contacts.filter((id) => detail.id !== id)
   }
 </script>
