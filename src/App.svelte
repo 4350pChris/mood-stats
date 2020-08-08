@@ -34,11 +34,10 @@
 
   function routeLoaded() {
     const token = localStorage.getItem("token")
-    if (token !== MonicaClient.token) {
+    if (token !== null) {
       MonicaClient.token = token
     }
     if (MonicaClient.token && !$initialized) {
-
       Promise.all([contacts.fetchAll(), journal.fetchAll(), activities.fetchAll(), user.fetchUser()]).finally(
         () => ($initialized = true)
       )
@@ -47,7 +46,7 @@
 </script>
 
 <Navbar />
-<main class="container mx-auto flex flex-col pt-16 mb-2">
+<main class:bg-white={$initialized} class="rounded container mx-auto flex flex-col pt-16 mb-2">
   {#if !$initialized && MonicaClient.token}
     <div class="spinner-xl min-h-screen -mt-16 -mb-2" />
   {/if}

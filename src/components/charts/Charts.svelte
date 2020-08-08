@@ -4,13 +4,19 @@
   import { activities } from "src/stores/activities"
   import { initialized } from "src/stores/app"
   import { fade } from "svelte/transition"
+  import Mood from "./Mood.svelte"
 
   let contactIds: number[]
   $: contactIds = [...$journal, ...$activities].flatMap(({ contacts }) => contacts)
 </script>
 
 {#if $initialized}
-  <div in:fade class="bg-white rounded">
+  <section class="mb-4">
+    <h1 class="text-2xl mb-2">Mood Calendar</h1>
+    <Mood />
+  </section>
+  <section>
+    <h1 class="text-2xl mb-2">Time spent together</h1>
     <TimeSpentTogether {contactIds} />
-  </div>
+  </section>
 {/if}

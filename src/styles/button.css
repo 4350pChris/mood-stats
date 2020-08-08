@@ -1,9 +1,5 @@
 .btn {
-  @apply font-bold py-2 px-4 rounded uppercase;
-
-  &:hover {
-    @apply transition-colors duration-300;
-  }
+  @apply font-bold py-2 px-4 rounded uppercase transition-colors duration-300;
 
   &-link {
     @apply bg-opacity-0 !important;
@@ -11,6 +7,10 @@
     &:hover {
       --bg-opacity: 0.07 !important;
     }
+  }
+
+  &-icon {
+    @apply rounded-full !important;
   }
 
   &-blue {
