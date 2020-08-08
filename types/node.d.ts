@@ -1,8 +1,6 @@
 interface ImportMeta {
-  env: {
-    SNOWPACK_PUBLIC_MONICA_API_TOKEN: string;
-    SNOWPACK_PUBLIC_MONICA_API_URL: string;
-  }
+  hot: any;
+  env: Record<string, any>;
 }
 
 declare module 'svelte-spa-router';
