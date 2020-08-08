@@ -11,11 +11,13 @@
 
   let hoverRating: number = 0;
   const dispatch = createEventDispatcher();
-  const ratings = new Array(10).map((_, i) => i + 1)
+  const ratings = Array.from(Array(10), (_, i) => i + 1)
 </script>
 
-<div class="flex items-center justify-between">
-  {@html icon(faFrown, { classes: ["text-red-700"], transform: { size: 32 } }).html}
+<div class="flex items-center justify-center">
+  <span class="mr-4">
+    {@html icon(faFrown, { classes: ["text-red-700"], transform: { size: 32 } }).html}
+  </span>
   {#each ratings as star}
     <button
       class="btn btn-link rounded-full text-yellow-500"
@@ -30,5 +32,7 @@
       {@html icon(star <= (hoverRating > 0 ? hoverRating : rating) ? solidStar : liquidStar).html}
     </button>
   {/each}
-  {@html icon(faSmileBeam, { classes: ["text-green-700"], transform: { size: 32 } }).html}
+  <span class="ml-4">
+    {@html icon(faSmileBeam, { classes: ["text-green-700"], transform: { size: 32 } }).html}
+  </span>
 </div>
