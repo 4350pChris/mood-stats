@@ -1,17 +1,17 @@
 <script lang="ts">
   import { fade } from "svelte/transition"
-  import { journal } from "src/stores/journal"
+  import { journal } from "../../stores/journal"
   import JournalEntryCard from "./JournalEntryCard.svelte"
   import JournalEntryInput from "./JournalEntryInput.svelte"
-  import type { JournalEntry } from "src/models/journalEntry"
-  import { initialized } from "src/stores/app"
+  import type { JournalEntry } from "../../models/journalEntry"
+  import { initialized } from "../../stores/app"
 
   let sortedJournals: JournalEntry[]
   let editing: number
 
   $: sortedJournals = $journal.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 
-  function handleCreation({ detail: entry }: { detail?: JournalEntry }) {
+  function handleCreation({ detail: entry }: { detail: JournalEntry }) {
     journal.create(entry)
   }
 
@@ -19,8 +19,8 @@
     journal.delete(id)
   }
 
-  async function handleEdit({ detail }: { detail?: JournalEntry }) {
-    await journal.edit({ id: editing, ...detail })
+  async function handleEdit({ detail }: { detail: JournalEntry }) {
+    await journal.edit(detail)
     editing = -1
   }
 </script>

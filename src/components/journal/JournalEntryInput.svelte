@@ -5,7 +5,7 @@
   import DOMPurify from "dompurify"
   import type { JournalEntry } from "../../models/journalEntry"
   import type { Contact } from "../../models/contact"
-  import Search from "src/components/contacts/Search.svelte"
+  import Search from "../contacts/Search.svelte"
   import JournalContacts from "./JournalContacts.svelte"
   import JournalRating from "./JournalRating.svelte";
 
