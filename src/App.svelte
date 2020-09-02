@@ -8,7 +8,7 @@
 </style>
 
 <script lang="ts">
-  import "./styles/index.css"
+  import "./styles/index.ts"
   import Journal from "./components/journal/Journal.svelte"
   import { contacts } from "./stores/contacts"
   import { journal } from "./stores/journal"
@@ -17,38 +17,50 @@
   import { MonicaClient } from "./stores/api"
   import Navbar from "./components/navbar/Navbar.svelte"
   import { user } from "./stores/user"
-  import { initialized } from "./stores/app"
-  import Router, { wrap, replace } from "svelte-spa-router"
   import Token from "./components/Token.svelte"
+  import { redirect, Router, Route } from "./router"
+  import NotFound from "./router/NotFound.svelte"
 
-  function checkToken() {
-    return localStorage.getItem("token") !== null
-  }
-
-  const routes = {
-    "/": wrap(Journal, checkToken),
-    "/journal": wrap(Journal, checkToken),
-    "/charts": wrap(Charts, checkToken),
-    "/token": Token,
-  }
-
-  function routeLoaded() {
-    const token = localStorage.getItem("token")
-    if (token !== null) {
-      MonicaClient.token = token
-    }
-    if (MonicaClient.token && !$initialized) {
-      Promise.all([contacts.fetchAll(), journal.fetchAll(), activities.fetchAll(), user.fetchUser()]).finally(
-        () => ($initialized = true)
-      )
+  const guard: PageJS.Callback = (ctx, next) => {
+    const token = localStorage.getItem("token");
+    if (token === null) {
+      redirect("/token");
+    } else {
+      MonicaClient.token = token;
+      next();
     }
   }
+
+  const once = (fn: () => any) => {
+    let run = false;
+    let res: any = null;
+
+    return () => {
+      if (!run) {
+        run = true;
+        res = fn();
+      }
+      return res;
+    }
+  }
+
+  const preLoad = once(
+    () => Promise.all([contacts.fetchAll(), activities.fetchAll(), user.fetchUser()])
+  );
+
+  const toCallback: (fn: () => Promise<any>) => PageJS.Callback = fn => (ctx, next) => {
+    fn().then(() => next()).catch(console.error);
+  };
+
+  const preLoadCb: PageJS.Callback = toCallback(preLoad);
 </script>
 
 <Navbar />
-<main class:bg-white={$initialized} class="rounded container mx-auto flex flex-col pt-16 mb-2">
-  {#if !$initialized && MonicaClient.token}
-    <div class="spinner-xl min-h-screen -mt-16 -mb-2" />
-  {/if}
-  <Router {routes} on:conditionsFailed={() => replace('/token')} on:routeLoaded={routeLoaded} />
+<main class="rounded container mx-auto flex flex-col pt-16 mb-2">
+  <Router>
+    <Route path="/" component={Journal} middleware={[guard, preLoadCb, toCallback(journal.fetchAll)]} />
+    <Route path="/charts" component={Charts} middleware={[guard, preLoadCb]} />
+    <Route path="/token" component={Token} />
+    <NotFound />
+  </Router>
 </main>

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router"
+  import { push } from "../router";
+
   import { fade } from "svelte/transition"
 
   let token: string = localStorage.getItem("token") ?? ""

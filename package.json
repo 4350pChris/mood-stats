@@ -13,8 +13,8 @@
     "debounce": "^1.2.0",
     "dompurify": "^2.0.12",
     "marked": "^1.1.1",
-    "svelte-click-outside": "^1.0.0",
-    "svelte-spa-router": "^2.2.0"
+    "page": "^1.11.6",
+    "svelte-click-outside": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -30,6 +30,7 @@
     "@types/debounce": "^1.2.0",
     "@types/dompurify": "^2.0.2",
     "@types/marked": "^1.1.0",
+    "@types/page": "^1.8.0",
     "autoprefixer": "^9.8.5",
     "cssnano": "^4.1.10",
     "jest": "^25.4.0",
